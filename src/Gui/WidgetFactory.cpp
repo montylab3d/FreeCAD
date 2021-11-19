@@ -594,7 +594,7 @@ Py::Object PyResource::value(const Py::Tuple& args)
         item = Py::Long(static_cast<unsigned long>(v.toUInt()));
         break;
     case QVariant::Int:
-        item = Py::Int(v.toInt());
+        item = Py::Long(v.toInt());
         break;
     default:
         item = Py::String("");

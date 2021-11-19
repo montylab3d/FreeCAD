@@ -797,8 +797,8 @@ int DocumentObjectPy::setCustomAttributes(const char* attr, PyObject *obj)
     return 0;
 }
 
-Py::Int DocumentObjectPy::getID() const {
-    return Py::Int(getDocumentObjectPtr()->getID());
+Py::Long DocumentObjectPy::getID() const {
+    return Py::Long(getDocumentObjectPtr()->getID());
 }
 
 Py::Boolean DocumentObjectPy::getRemoving() const {

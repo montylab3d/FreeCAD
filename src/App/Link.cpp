@@ -224,7 +224,7 @@ App::DocumentObjectExecReturn *LinkBaseExtension::extensionExecute(void) {
                         } else {
                             const auto &elements = _getElementListValue();
                             for(int i=0; i<_getElementCountValue(); ++i) {
-                                args.setItem(2, Py::Int(i));
+                                args.setItem(2, Py::Long(i));
                                 if(i < (int)elements.size())
                                     args.setItem(3, Py::asObject(elements[i]->getPyObject()));
                                 else

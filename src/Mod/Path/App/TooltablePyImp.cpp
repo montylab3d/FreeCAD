@@ -230,12 +230,12 @@ int TooltablePy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
     return 0;
 }
 
-Py::Int TooltablePy::getVersion(void) const
+Py::Long TooltablePy::getVersion(void) const
 {
-    return Py::Int(getTooltablePtr()->Version);
+    return Py::Long(getTooltablePtr()->Version);
 }
 
-void TooltablePy::setVersion(Py::Int version) {
+void TooltablePy::setVersion(Py::Long version) {
     getTooltablePtr()->Version = version;
 }
 

@@ -591,9 +591,9 @@ Py::Dict QuantityPy::getFormat(void) const
     QuantityFormat fmt = getQuantityPtr()->getFormat();
 
     Py::Dict dict;
-    dict.setItem("Precision", Py::Int (fmt.precision));
+    dict.setItem("Precision", Py::Long (fmt.precision));
     dict.setItem("NumberFormat", Py::Char(fmt.toFormat()));
-    dict.setItem("Denominator", Py::Int(fmt.denominator));
+    dict.setItem("Denominator", Py::Long(fmt.denominator));
     return dict;
 }
 
@@ -602,7 +602,7 @@ void  QuantityPy::setFormat(Py::Dict arg)
     QuantityFormat fmt = getQuantityPtr()->getFormat();
 
     if (arg.hasKey("Precision")) {
-        Py::Int  prec(arg.getItem("Precision"));
+        Py::Long  prec(arg.getItem("Precision"));
         fmt.precision = static_cast<int>(prec);
     }
 
@@ -619,7 +619,7 @@ void  QuantityPy::setFormat(Py::Dict arg)
     }
 
     if (arg.hasKey("Denominator")) {
-        Py::Int  denom(arg.getItem("Denominator"));
+        Py::Long  denom(arg.getItem("Denominator"));
         int fracInch = static_cast<int>(denom);
         // check that the value is positive and a power of 2
         if (fracInch <= 0)

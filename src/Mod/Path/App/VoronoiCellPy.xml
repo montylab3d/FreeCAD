@@ -38,7 +38,7 @@
             <Documentation>
                 <UserDocu>Returns the index of the cell's source</UserDocu>
             </Documentation>
-            <Parameter Name="SourceCategory" Type="Int"/>
+            <Parameter Name="SourceCategory" Type="Long"/>
         </Attribute>
         <Attribute Name="IncidentEdge" ReadOnly="true">
             <Documentation>

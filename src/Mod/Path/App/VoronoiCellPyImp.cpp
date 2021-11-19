@@ -138,10 +138,10 @@ Py::Long VoronoiCellPy::getSourceIndex(void) const
   return Py::Long(index);
 }
 
-Py::Int VoronoiCellPy::getSourceCategory(void) const
+Py::Long VoronoiCellPy::getSourceCategory(void) const
 {
   VoronoiCell *c = getVoronoiCellFromPy(this);
-  return Py::Int(c->ptr->source_category());
+  return Py::Long(c->ptr->source_category());
 }
 
 Py::Object VoronoiCellPy::getIncidentEdge(void) const

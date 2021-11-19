@@ -25,7 +25,7 @@
             <Documentation>
                 <UserDocu>the version of this tooltable</UserDocu>
             </Documentation>
-            <Parameter Name="Version" Type="Int"/>
+            <Parameter Name="Version" Type="Long"/>
         </Attribute>
         <Attribute Name="Tools" ReadOnly="false">
             <Documentation>

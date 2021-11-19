@@ -86,7 +86,7 @@
       <Documentation>
         <UserDocu>Geometry Tag</UserDocu>
       </Documentation>
-      <Parameter Name="Tag" Type="Int"/>
+      <Parameter Name="Tag" Type="Long"/>
     </Attribute>
   </PythonExport>
 </GenerateModel>

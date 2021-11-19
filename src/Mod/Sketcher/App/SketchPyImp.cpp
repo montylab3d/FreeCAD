@@ -167,7 +167,7 @@ PyObject* SketchPy::movePoint(PyObject *args)
 
 Py::Long SketchPy::getConstraint(void) const
 {
-    //return Py::Int();
+    //return Py::Long();
     throw Py::AttributeError("Not yet implemented");
 }
 

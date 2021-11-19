@@ -223,7 +223,7 @@ view: the MDIView, default to active view
       <Documentation>
         <UserDocu>Get/Set the default display mode in turns of coin node index</UserDocu>
       </Documentation>
-      <Parameter Name="DefaultNode" Type="Int" />
+      <Parameter Name="DefaultNode" Type="Long" />
     </Attribute>
     <Attribute Name="IV" ReadOnly="true">
       <Documentation>

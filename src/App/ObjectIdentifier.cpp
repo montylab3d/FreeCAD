@@ -623,16 +623,16 @@ Py::Object ObjectIdentifier::Component::get(const Py::Object &pyobj) const {
         res = pyobj.getAttr(getName());
     } else if(isArray()) {
         if(pyobj.isMapping())
-            res = Py::Mapping(pyobj).getItem(Py::Int(begin));
+            res = Py::Mapping(pyobj).getItem(Py::Long(begin));
         else
             res = Py::Sequence(pyobj).getItem(begin);
     }else if(isMap())
         res = Py::Mapping(pyobj).getItem(getName());
     else {
         assert(isRange());
-        Py::Object slice(PySlice_New(Py::Int(begin).ptr(),
-                                    end!=INT_MAX?Py::Int(end).ptr():0,
-                                    step!=1?Py::Int(step).ptr():0),true);
+        Py::Object slice(PySlice_New(Py::Long(begin).ptr(),
+                                    end!=INT_MAX?Py::Long(end).ptr():0,
+                                    step!=1?Py::Long(step).ptr():0),true);
         PyObject *r = PyObject_GetItem(pyobj.ptr(),slice.ptr());
         if(!r)
             Base::PyException::ThrowException();
@@ -651,16 +651,16 @@ void ObjectIdentifier::Component::set(Py::Object &pyobj, const Py::Object &value
             Base::PyException::ThrowException();
     } else if(isArray()) {
         if(pyobj.isMapping())
-            Py::Mapping(pyobj).setItem(Py::Int(begin),value);
+            Py::Mapping(pyobj).setItem(Py::Long(begin),value);
         else
             Py::Sequence(pyobj).setItem(begin,value);
     }else if(isMap())
         Py::Mapping(pyobj).setItem(getName(),value);
     else {
         assert(isRange());
-        Py::Object slice(PySlice_New(Py::Int(begin).ptr(),
-                                    end!=INT_MAX?Py::Int(end).ptr():0,
-                                    step!=1?Py::Int(step).ptr():0),true);
+        Py::Object slice(PySlice_New(Py::Long(begin).ptr(),
+                                    end!=INT_MAX?Py::Long(end).ptr():0,
+                                    step!=1?Py::Long(step).ptr():0),true);
         if(PyObject_SetItem(pyobj.ptr(),slice.ptr(),value.ptr())<0)
             Base::PyException::ThrowException();
     }
@@ -671,16 +671,16 @@ void ObjectIdentifier::Component::del(Py::Object &pyobj) const {
         pyobj.delAttr(getName());
     else if(isArray()) {
         if(pyobj.isMapping())
-            Py::Mapping(pyobj).delItem(Py::Int(begin));
+            Py::Mapping(pyobj).delItem(Py::Long(begin));
         else
             PySequence_DelItem(pyobj.ptr(),begin);
     } else if(isMap())
         Py::Mapping(pyobj).delItem(getName());
     else {
         assert(isRange());
-        Py::Object slice(PySlice_New(Py::Int(begin).ptr(),
-                                    end!=INT_MAX?Py::Int(end).ptr():0,
-                                    step!=1?Py::Int(step).ptr():0),true);
+        Py::Object slice(PySlice_New(Py::Long(begin).ptr(),
+                                    end!=INT_MAX?Py::Long(end).ptr():0,
+                                    step!=1?Py::Long(step).ptr():0),true);
         if(PyObject_DelItem(pyobj.ptr(),slice.ptr())<0)
             Base::PyException::ThrowException();
     }

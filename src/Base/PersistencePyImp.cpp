@@ -50,9 +50,9 @@ Py::String PersistencePy::getContent(void) const
     return  Py::String (writer.getString());
 }
 
-Py::Int PersistencePy::getMemSize(void) const
+Py::Long PersistencePy::getMemSize(void) const
 {
-    return Py::Int((long)getPersistencePtr()->getMemSize());
+    return Py::Long((long)getPersistencePtr()->getMemSize());
 }
 
 PyObject* PersistencePy::dumpContent(PyObject *args, PyObject *kwds)

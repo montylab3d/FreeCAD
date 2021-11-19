@@ -283,7 +283,7 @@ PyObject* ViewProviderPy::replaceObject(PyObject *args)
         int ret = getViewProviderPtr()->replaceObject(
                 static_cast<App::DocumentObjectPy*>(oldObj)->getDocumentObjectPtr(),
                 static_cast<App::DocumentObjectPy*>(newObj)->getDocumentObjectPtr());
-        return Py::new_reference_to(Py::Int(ret));
+        return Py::new_reference_to(Py::Long(ret));
     } PY_CATCH;
 }
 
@@ -407,7 +407,7 @@ PyObject* ViewProviderPy::partialRender(PyObject* args)
         }
     }
 
-    Py::Int ret(getViewProviderPtr()->partialRender(values,PyObject_IsTrue(clear)));
+    Py::Long ret(getViewProviderPtr()->partialRender(values,PyObject_IsTrue(clear)));
     return Py::new_reference_to(ret);
 }
 
@@ -630,12 +630,12 @@ Py::Object ViewProviderPy::getIcon(void) const
 #endif
 }
 
-Py::Int ViewProviderPy::getDefaultMode(void) const
+Py::Long ViewProviderPy::getDefaultMode(void) const
 {
-    return Py::Int((long)getViewProviderPtr()->getDefaultMode());
+    return Py::Long((long)getViewProviderPtr()->getDefaultMode());
 }
 
-void ViewProviderPy::setDefaultMode(Py::Int arg)
+void ViewProviderPy::setDefaultMode(Py::Long arg)
 {
     return getViewProviderPtr()->setDefaultMode(arg);
 }

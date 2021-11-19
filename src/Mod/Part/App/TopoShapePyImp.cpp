@@ -2303,7 +2303,7 @@ PyObject* TopoShapePy::countElement(PyObject *args)
     if (!PyArg_ParseTuple(args, "s", &input))
         return NULL;
     PY_TRY {
-        return Py::new_reference_to(Py::Int((long)getTopoShapePtr()->countSubShapes(input)));
+        return Py::new_reference_to(Py::Long((long)getTopoShapePtr()->countSubShapes(input)));
     } PY_CATCH_OCC
 }
 

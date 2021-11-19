@@ -173,7 +173,7 @@ PyObject * MatrixPy::number_power_handler (PyObject* self, PyObject* other, PyOb
 
     Base::Matrix4D a = static_cast<MatrixPy*>(self)->value();
 
-    long b = Py::Int(other);
+    long b = Py::Long(other);
     if (!b)
         return new MatrixPy(Matrix4D());
 
@@ -301,7 +301,7 @@ PyObject* MatrixPy::hasScale(PyObject * args)
     double tol=0;
     if (!PyArg_ParseTuple(args, "|d", &tol))
         return nullptr;
-    return Py::new_reference_to(Py::Int(getMatrixPtr()->hasScale(tol)));
+    return Py::new_reference_to(Py::Long(getMatrixPtr()->hasScale(tol)));
 }
 
 PyObject* MatrixPy::unity(PyObject * args)

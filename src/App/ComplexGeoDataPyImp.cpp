@@ -104,9 +104,9 @@ PyObject* ComplexGeoDataPy::getFacesFromSubElement(PyObject *args)
     for (std::vector<Data::ComplexGeoData::Facet>::const_iterator
         it = facets.begin(); it != facets.end(); ++it) {
         Py::Tuple f(3);
-        f.setItem(0,Py::Int(int(it->I1)));
-        f.setItem(1,Py::Int(int(it->I2)));
-        f.setItem(2,Py::Int(int(it->I3)));
+        f.setItem(0,Py::Long(int(it->I1)));
+        f.setItem(1,Py::Long(int(it->I2)));
+        f.setItem(2,Py::Long(int(it->I3)));
         facet.append(f);
     }
     tuple.setItem(1, facet);
@@ -141,8 +141,8 @@ PyObject* ComplexGeoDataPy::getLinesFromSubElement(PyObject *args)
     for (std::vector<Data::ComplexGeoData::Line>::const_iterator
         it = lines.begin(); it != lines.end(); ++it) {
         Py::Tuple l(2);
-        l.setItem(0,Py::Int((int)it->I1));
-        l.setItem(1,Py::Int((int)it->I2));
+        l.setItem(0,Py::Long((int)it->I1));
+        l.setItem(1,Py::Long((int)it->I2));
         line.append(l);
     }
     tuple.setItem(1, line);
@@ -208,8 +208,8 @@ PyObject* ComplexGeoDataPy::getLines(PyObject *args)
     for (std::vector<Data::ComplexGeoData::Line>::const_iterator
         it = lines.begin(); it != lines.end(); ++it) {
         Py::Tuple l(2);
-        l.setItem(0,Py::Int((int)it->I1));
-        l.setItem(1,Py::Int((int)it->I2));
+        l.setItem(0,Py::Long((int)it->I1));
+        l.setItem(1,Py::Long((int)it->I2));
         line.append(l);
     }
     tuple.setItem(1, line);
@@ -242,9 +242,9 @@ PyObject* ComplexGeoDataPy::getFaces(PyObject *args)
     for (std::vector<Data::ComplexGeoData::Facet>::const_iterator
         it = facets.begin(); it != facets.end(); ++it) {
         Py::Tuple f(3);
-        f.setItem(0,Py::Int((int)it->I1));
-        f.setItem(1,Py::Int((int)it->I2));
-        f.setItem(2,Py::Int((int)it->I3));
+        f.setItem(0,Py::Long((int)it->I1));
+        f.setItem(1,Py::Long((int)it->I2));
+        f.setItem(2,Py::Long((int)it->I3));
         facet.append(f);
     }
     tuple.setItem(1, facet);
@@ -334,12 +334,12 @@ void ComplexGeoDataPy::setPlacement(Py::Object arg)
     }
 }
 
-Py::Int ComplexGeoDataPy::getTag() const
+Py::Long ComplexGeoDataPy::getTag() const
 {
-    return Py::Int(getComplexGeoDataPtr()->Tag);
+    return Py::Long(getComplexGeoDataPtr()->Tag);
 }
 
-void ComplexGeoDataPy::setTag(Py::Int tag)
+void ComplexGeoDataPy::setTag(Py::Long tag)
 {
     getComplexGeoDataPtr()->Tag = tag;
 }

@@ -589,7 +589,7 @@ ViewProviderPythonFeatureImp::setEdit(int ModNum)
     try {
         if (has__object__) {
             Py::Tuple args(1);
-            args.setItem(0, Py::Int(ModNum));
+            args.setItem(0, Py::Long(ModNum));
             Py::Object ret(Base::pyCall(py_setEdit.ptr(),args.ptr()));
             if (ret.isNone())
                 return NotImplemented;
@@ -600,7 +600,7 @@ ViewProviderPythonFeatureImp::setEdit(int ModNum)
         else {
             Py::Tuple args(2);
             args.setItem(0, Py::Object(object->getPyObject(), true));
-            args.setItem(1, Py::Int(ModNum));
+            args.setItem(1, Py::Long(ModNum));
             Py::Object ret(Base::pyCall(py_setEdit.ptr(),args.ptr()));
             if (ret.isNone())
                 return NotImplemented;
@@ -630,7 +630,7 @@ ViewProviderPythonFeatureImp::unsetEdit(int ModNum)
     try {
         if (has__object__) {
             Py::Tuple args(1);
-            args.setItem(0, Py::Int(ModNum));
+            args.setItem(0, Py::Long(ModNum));
             Py::Object ret(Base::pyCall(py_unsetEdit.ptr(),args.ptr()));
             if (ret.isNone())
                 return NotImplemented;
@@ -641,7 +641,7 @@ ViewProviderPythonFeatureImp::unsetEdit(int ModNum)
         else {
             Py::Tuple args(2);
             args.setItem(0, Py::Object(object->getPyObject(), true));
-            args.setItem(1, Py::Int(ModNum));
+            args.setItem(1, Py::Long(ModNum));
             Py::Object ret(Base::pyCall(py_unsetEdit.ptr(),args.ptr()));
             if (ret.isNone())
                 return NotImplemented;
@@ -672,7 +672,7 @@ ViewProviderPythonFeatureImp::setEditViewer(View3DInventorViewer *viewer, int Mo
         Py::Tuple args(3);
         args.setItem(0, Py::Object(object->getPyObject(),true));
         args.setItem(1, Py::Object(viewer->getPyObject(),true));
-        args.setItem(2, Py::Int(ModNum));
+        args.setItem(2, Py::Long(ModNum));
         Py::Object ret(Base::pyCall(py_setEditViewer.ptr(),args.ptr()));
         return ret.isTrue()?Accepted:Rejected;
     }
@@ -882,7 +882,7 @@ void ViewProviderPythonFeatureImp::finishRestoring()
         Py::Object vp = Proxy.getValue();
         if (vp.isNone()) {
             object->show();
-            Proxy.setValue(Py::Int(1));
+            Proxy.setValue(Py::Long(1));
         } else {
             _FC_PY_CALL_CHECK(finishRestoring,return);
             Base::pyCall(py_finishRestoring.ptr());
