@@ -44,7 +44,7 @@ public:
     XmlConfig getUserDefines() const;
 
 private:
-    QVector<std::string> filter;
+    QVector<std::string> filter{0};
     bool evaluateXML(QIODevice *device, QDomDocument& xmlDocument);
     QDomDocument domDocument;
 };
