@@ -218,7 +218,7 @@ mv %{buildroot}%{_libdir}/%{name}/share/* \
    %{buildroot}%{_datadir}
 
 # Install man page
-install -pD -m 0644 %{SOURCE102} \
+install -pD -m 0644 packages/fedora/freecad.1 \
     %{buildroot}%{_mandir}/man1/%{name}.1
 # Symlink manpage to other binary names
 pushd %{buildroot}%{_mandir}/man1
