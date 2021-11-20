@@ -118,9 +118,11 @@ macro(SetupSalomeSMESH)
             set(SMESH_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src/3rdParty/salomesmesh/inc)
 
         else(NOT FREECAD_USE_EXTERNAL_SMESH)
-            find_package(SMESH CONFIG)
-            set (SMESH_INCLUDE_DIR ${SMESH_INCLUDE_PATH})
-            set(EXTERNAL_SMESH_LIBS ${SMESH_LIBRARIES})
+          find_package(SMESH CONFIG COMPONENTS Driver DriverDAT DriverSTL
+	    DriverUNV SMDS SMESH SMESHDS StdMeshers MEFISTO2 Controls
+	    SMESHUtils NETGENPlugin MeshVSLink)
+
+          set(EXTERNAL_SMESH_LIBS ${SMESH_LIBRARIES})
             if(NOT SMESH_FOUND)
                 message(ERROR "================\n"
                               "SMESH not found.\n"
