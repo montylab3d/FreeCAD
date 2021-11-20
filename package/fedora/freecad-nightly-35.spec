@@ -173,8 +173,6 @@ dos2unix -k src/Mod/Test/unittestgui.py \
        -DSHIBOKEN_LIBRARY=%{_libdir}/libshiboken2.%{py_suffix}.so \
        -DBUILD_QT5=ON \
        -DOpenGL_GL_PREFERENCE=GLVND \
-       -DCOIN3D_INCLUDE_DIR=%{_includedir}/Coin4 \
-       -DCOIN3D_DOC_PATH=%{_datadir}/Coin4/Coin \
        -DUSE_OCC=TRUE \
        -DBUILD_FEM_NETGEN=TRUE \
 %if ! %{bundled_smesh}
@@ -194,12 +192,12 @@ dos2unix -k src/Mod/Test/unittestgui.py \
        -DFREECAD_USE_EXTERNAL_PIVY=TRUE \
        -DFREECAD_USE_PCL=TRUE \
        -DPACKAGE_WCREF="%{release} (Git)" \
-       -DPACKAGE_WCURL="git://github.com/%{github_name}/FreeCAD.git master"
+       -DPACKAGE_WCURL="{{{git_remote_url}}} {{{git_branch}}}"
 
 make fc_version
 for I in src/Build/Version.h src/Build/Version.h.out; do
 	sed -i 's,FCRevision      \"Unknown\",FCRevision      \"%{release} (Git)\",' $I
-	sed -i 's,FCRepositoryURL \"Unknown\",FCRepositoryURL \"git://github.com/FreeCAD/FreeCAD.git master\",' $I
+	sed -i 's,FCRepositoryURL \"Unknown\",FCRepositoryURL \"{{{git_remote_url}}} {{{git_branch}}}"\",' $I
 done
 
 %cmake_build
@@ -218,7 +216,7 @@ mv %{buildroot}%{_libdir}/%{name}/share/* \
    %{buildroot}%{_datadir}
 
 # Install man page
-install -pD -m 0644 packages/fedora/freecad.1 \
+install -pD -m 0644 package/fedora/freecad.1 \
     %{buildroot}%{_mandir}/man1/%{name}.1
 # Symlink manpage to other binary names
 pushd %{buildroot}%{_mandir}/man1
