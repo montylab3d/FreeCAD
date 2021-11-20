@@ -6,7 +6,7 @@
 # COIN3D_DOC_TAGFILE  - full name of the tag file
 # COIN3D_DOC_PATH     - path to html Coin3D doc
 
-SET( COIN3D_DOC_FOUND "NO" )
+SET( COIN3D_DOC_FOUND FALSE )
 
 IF (COIN3D_FOUND)
   IF (WIN32)
@@ -24,6 +24,9 @@ IF (COIN3D_FOUND)
                 /usr/share/doc/libcoin80-doc/html
                 /usr/share/doc/coin/html
                 /usr/share/doc/Coin/html
+                /usr/share/doc/Coin2/html
+                /usr/share/doc/Coin3/html
+                /usr/share/doc/Coin4/html
       )
       IF( EXISTS ${COIN3D_DOC_PATH})
         message(STATUS "Coin3D doc is installed")
@@ -31,7 +34,7 @@ IF (COIN3D_FOUND)
             PATHS ${COIN3D_DOC_PATH}
         )
         IF( EXISTS ${COIN3D_DOC_TAGFILE})
-          SET( COIN3D_DOC_FOUND "YES"
+          SET( COIN3D_DOC_FOUND TRUE
           )
         ELSE( EXISTS ${COIN3D_DOC_TAGFILE})
           find_file(COIN3D_DOC_TAGFILE_GZ NAMES coin.tag.gz Coin.tag.gz 
@@ -54,7 +57,7 @@ IF (COIN3D_FOUND)
             ${CMAKE_BINARY_DIR}/src/Doc
         )
         IF( EXISTS ${COIN3D_DOC_TAGFILE})
-          SET( COIN3D_DOC_FOUND "YES"
+          SET( COIN3D_DOC_FOUND TRUE
           )
         #ELSE( EXISTS ${COIN3D_DOC_TAGFILE})
         #  find_program(WGET_PROG wget
@@ -68,7 +71,7 @@ IF (COIN3D_FOUND)
         #        ${CMAKE_BINARY_DIR}/src/Doc
         #    )
         #    IF( EXISTS ${COIN3D_DOC_TAGFILE})
-        #      SET( COIN3D_DOC_FOUND "YES"
+        #      SET( COIN3D_DOC_FOUND TRUE
         #      )
         #    ENDIF( EXISTS ${COIN3D_DOC_TAGFILE})
         #
@@ -87,4 +90,4 @@ if(COIN3D_DOC_FOUND)
 endif(COIN3D_DOC_FOUND)
 
 # export for others
-SET( COIN3D_DOC_FOUND "${COIN3D_DOC_FOUND}" CACHE BOOL "Coin3d documentation available")
+SET( COIN3D_DOC_FOUND ${COIN3D_DOC_FOUND} CACHE BOOL "Coin3d documentation available")
