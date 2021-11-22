@@ -88,7 +88,7 @@ PyObject*  ViewProviderPy::addProperty(PyObject *args)
     if (!prop) {
         std::stringstream str;
         str << "No property found of type '" << sType << "'" << std::ends;
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str.str());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str.str());
     }
 
     return Py::new_reference_to(this);

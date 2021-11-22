@@ -98,7 +98,7 @@ private:
             Gui::getMainWindow()->addWindow(view);
         }
         else {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, "unknown filetype");
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, "unknown filetype");
         }
 
         return Py::None();
@@ -125,7 +125,7 @@ private:
             view->resize( 400, 300 );
             Gui::getMainWindow()->addWindow(view);
         } else {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, "unknown filetype");
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, "unknown filetype");
         }
 
         return Py::None();
@@ -151,7 +151,7 @@ private:
                     if (!str_out) {
                         std::stringstream str;
                         str << "Cannot open file '" << EncodedName << "' for writing";
-                        throw Py::Exception(PyExc_IOError, str.str().c_str());
+                        throw Py::BaseException(PyExc_IOError, str.str().c_str());
                     }
                     if (fi_out.hasExtension("svg")) {
                         std::string fn = static_cast<Drawing::FeaturePage*>(obj)->PageResult.getValue();
@@ -160,7 +160,7 @@ private:
                         if (!str_in) {
                             std::stringstream str;
                             str << "Cannot open file '" << fn << "' for reading";
-                            throw Py::Exception(PyExc_IOError, str.str().c_str());
+                            throw Py::BaseException(PyExc_IOError, str.str().c_str());
                         }
 
                         str_in >> str_out.rdbuf();
@@ -176,7 +176,7 @@ private:
                                 std::string viewName = view->Label.getValue();
                                 App::DocumentObject* link = view->Source.getValue();
                                 if (!link) {
-                                    throw Py::Exception(Base::BaseExceptionFreeCADError, "No object linked");
+                                    throw Py::BaseException(Base::BaseExceptionFreeCADError, "No object linked");
                                 }
                                 if (!link->getTypeId().isDerivedFrom(Part::Feature::getClassTypeId())) {
                                     throw Py::TypeError("Linked object is not a Part object");

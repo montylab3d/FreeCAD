@@ -98,7 +98,7 @@ private:
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
             Base::Console().Error("%s\n", str.c_str());
-            throw Py::Exception(Part::PartExceptionOCCError, str);
+            throw Py::BaseException(Part::PartExceptionOCCError, str);
         }
         catch (const Base::Exception &e) {
             std::string str;
@@ -116,6 +116,7 @@ private:
             Base::Console().Error("%s\n", str.c_str());
             throw Py::RuntimeError(str);
         }
+        throw Py::Exception();
     }
 
 //! hook for FC Gui export function
@@ -204,7 +205,7 @@ private:
            }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
 
         return Py::None();
@@ -249,7 +250,7 @@ private:
            }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
 
         return Py::None();
@@ -310,7 +311,7 @@ private:
            }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
 
         PyObject* pyResult = nullptr;
@@ -356,7 +357,7 @@ private:
            }
         }
         catch (Base::Exception &e) {
-                throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+                throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
 
         return Py::None();

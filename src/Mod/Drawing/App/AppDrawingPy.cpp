@@ -114,7 +114,7 @@ private:
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
             Base::Console().Error("%s\n", str.c_str());
-            throw Py::Exception(Part::PartExceptionOCCError, str);
+            throw Py::BaseException(Part::PartExceptionOCCError, str);
         }
         catch (const Base::Exception &e) {
             std::string str;

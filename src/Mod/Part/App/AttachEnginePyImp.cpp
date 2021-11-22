@@ -106,9 +106,9 @@ Py::String AttachEnginePy::getAttacherType(void) const
   */
 #define ATTACHERPY_STDCATCH_ATTR \
     catch (Standard_Failure& e) {\
-        throw Py::Exception(Part::PartExceptionOCCError, e.GetMessageString());\
+        throw Py::BaseException(Part::PartExceptionOCCError, e.GetMessageString());\
     } catch (Base::Exception &e) {\
-        throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());\
+        throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());\
     }
 
 Py::String AttachEnginePy::getMode(void) const

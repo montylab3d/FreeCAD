@@ -151,7 +151,7 @@ private:
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
             Base::Console().Error("%s\n", str.c_str());
-            throw Py::Exception(Part::PartExceptionOCCError, str);
+            throw Py::BaseException(Part::PartExceptionOCCError, str);
         }
         catch (const Base::Exception &e) {
             std::string str;
@@ -193,7 +193,7 @@ private:
         }
         catch (Standard_Failure& e) {
 
-            throw Py::Exception(Part::PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(Part::PartExceptionOCCError, e.GetMessageString());
         }
 
         if (edgeList.empty()) {
@@ -227,7 +227,7 @@ private:
             }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
         return result;
     }
@@ -254,7 +254,7 @@ private:
         }
         catch (Standard_Failure& e) {
 
-            throw Py::Exception(Part::PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(Part::PartExceptionOCCError, e.GetMessageString());
         }
 
         if (edgeList.empty()) {
@@ -277,7 +277,7 @@ private:
             }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
         if (!success) {
             return Py::None();
@@ -318,7 +318,7 @@ private:
         }
         catch (Standard_Failure& e) {
 
-            throw Py::Exception(Part::PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(Part::PartExceptionOCCError, e.GetMessageString());
         }
 
         if (edgeList.empty()) {
@@ -343,7 +343,7 @@ private:
             }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
         if (!success) {
             return Py::None();
@@ -400,7 +400,7 @@ private:
            }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
 
         return dxfReturn;
@@ -478,7 +478,7 @@ private:
            }
         }
         catch (Base::Exception &e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
 
         return svgReturn;
@@ -789,7 +789,7 @@ private:
         }
         catch (Standard_Failure& e) {
 
-            throw Py::Exception(Part::PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(Part::PartExceptionOCCError, e.GetMessageString());
         }
 
         DrawDimHelper::makeExtentDim(dvp,
@@ -939,7 +939,7 @@ private:
                 }
             }
             catch (Base::Exception &e) {
-                throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+                throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
             }
             return result;
             */
@@ -957,7 +957,7 @@ private:
                 }
             }
             catch (Base::Exception &e) {
-                throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+                throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
             }
             PyObject* pycomp = new TopoShapeCompoundPy(new TopoShape(comp));
             return Py::asObject(pycomp);

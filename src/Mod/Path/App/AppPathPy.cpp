@@ -223,7 +223,7 @@ private:
             Path::Feature *pcFeature = static_cast<Path::Feature*>(pcDoc->addObject("Path::Feature", name));
             Path::Toolpath* pa = pPath->getToolpathPtr();
             if (!pa) {
-                throw Py::Exception(PyExc_ReferenceError, "object doesn't reference a valid path");
+                throw Py::BaseException(PyExc_ReferenceError, "object doesn't reference a valid path");
             }
 
             // copy the data

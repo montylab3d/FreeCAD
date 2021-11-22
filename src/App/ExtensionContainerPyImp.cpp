@@ -184,7 +184,7 @@ PyObject* ExtensionContainerPy::hasExtension(PyObject *args) {
     if (extension.isBad() || !extension.isDerivedFrom(App::Extension::getExtensionClassTypeId())) {
         std::stringstream str;
         str << "No extension found of type '" << type << "'" << std::ends;
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str.str());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str.str());
     }
 
     bool val = false;
@@ -213,7 +213,7 @@ PyObject* ExtensionContainerPy::addExtension(PyObject *args) {
     if (extension.isBad() || !extension.isDerivedFrom(App::Extension::getExtensionClassTypeId())) {
         std::stringstream str;
         str << "No extension found of type '" << typeId << "'" << std::ends;
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str.str());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str.str());
     }
     
     //register the extension
@@ -223,7 +223,7 @@ PyObject* ExtensionContainerPy::addExtension(PyObject *args) {
         delete ext;
         std::stringstream str;
         str << "Extension is not a python addable version: '" << typeId << "'" << std::ends;
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str.str());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str.str());
     }
     
     GetApplication().signalBeforeAddingDynamicExtension(*getExtensionContainerPtr(), typeId);

@@ -222,7 +222,7 @@ Py::Object qt_wrapInstance(qttype object, const char* className,
         std::string error = "Cannot load ";
         error += shiboken;
         error += " module";
-        throw Py::Exception(PyExc_ImportError, error);
+        throw Py::BaseException(PyExc_ImportError, error);
     }
 
     Py::Module mainmod(module, true);
@@ -236,7 +236,7 @@ Py::Object qt_wrapInstance(qttype object, const char* className,
         std::string error = "Cannot load ";
         error += pyside;
         error += " module";
-        throw Py::Exception(PyExc_ImportError, error);
+        throw Py::BaseException(PyExc_ImportError, error);
     }
 
     Py::Module qtmod(module);
@@ -251,7 +251,7 @@ const char* qt_identifyType(QObject* ptr, const char* pyside)
         std::string error = "Cannot load ";
         error += pyside;
         error += " module";
-        throw Py::Exception(PyExc_ImportError, error);
+        throw Py::BaseException(PyExc_ImportError, error);
     }
 
     Py::Module qtmod(module);
@@ -274,7 +274,7 @@ void* qt_getCppPointer(const Py::Object& pyobject, const char* shiboken, const c
         std::string error = "Cannot load ";
         error += shiboken;
         error += " module";
-        throw Py::Exception(PyExc_ImportError, error);
+        throw Py::BaseException(PyExc_ImportError, error);
     }
 
     Py::Module mainmod(module, true);

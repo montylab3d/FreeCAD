@@ -263,7 +263,7 @@ PyObject*  DocumentPy::addObject(PyObject *args, PyObject *kwd)
     else {
         std::stringstream str;
         str << "No document object found of type '" << sType << "'" << std::ends;
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str.str());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str.str());
     }
 }
 
@@ -282,7 +282,7 @@ PyObject*  DocumentPy::removeObject(PyObject *args)
     else {
         std::stringstream str;
         str << "No document object found with name '" << sName << "'" << std::ends;
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str.str());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str.str());
     }
 }
 
@@ -381,7 +381,7 @@ PyObject*  DocumentPy::moveObject(PyObject *args)
     }
     else {
         std::string str("Failed to move the object");
-        throw Py::Exception(Base::BaseExceptionFreeCADError,str);
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,str);
     }
 }
 

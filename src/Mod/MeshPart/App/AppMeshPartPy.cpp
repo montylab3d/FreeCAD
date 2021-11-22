@@ -159,7 +159,7 @@ private:
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
             Base::Console().Error("%s\n", str.c_str());
-            throw Py::Exception(Base::BaseExceptionFreeCADError, str);
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, str);
         }
         catch (const Base::Exception &e) {
             std::string str;
@@ -196,24 +196,24 @@ private:
         auto exText( "List of Tuples of three or two floats needed as second parameter!" );
 
         if (!PyList_Check(pcListObj))
-            throw Py::Exception(Base::BaseExceptionFreeCADError, exText);
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, exText);
 
         int nSize = PyList_Size(pcListObj);
         for (int i=0; i<nSize;++i) {
             PyObject* item = PyList_GetItem(pcListObj, i);
             if (!PyTuple_Check(item))
-                throw Py::Exception(Base::BaseExceptionFreeCADError, exText);
+                throw Py::BaseException(Base::BaseExceptionFreeCADError, exText);
 
             int nTSize = PyTuple_Size(item);
             if (nTSize != 2 && nTSize != 3)
-                throw Py::Exception(Base::BaseExceptionFreeCADError, exText);
+                throw Py::BaseException(Base::BaseExceptionFreeCADError, exText);
 
             Base::Vector3f vec(0,0,0);
 
             for(int l = 0; l < nTSize;l++) {
                 PyObject* item2 = PyTuple_GetItem(item, l);
                 if (!PyFloat_Check(item2))
-                    throw Py::Exception(Base::BaseExceptionFreeCADError, exText);
+                    throw Py::BaseException(Base::BaseExceptionFreeCADError, exText);
                 vec[l] = (float)PyFloat_AS_DOUBLE(item2);
             }
             poly.push_back(vec);
@@ -625,7 +625,7 @@ private:
             return Py::asObject(new Mesh::MeshPy(mesher.createMesh()));
         }
 
-        throw Py::Exception(Base::BaseExceptionFreeCADError,"Wrong arguments");
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,"Wrong arguments");
     }
 };
 

@@ -579,7 +579,7 @@ private:
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
             Base::Console().Error("%s\n", str.c_str());
-            throw Py::Exception(Part::PartExceptionOCCError, str);
+            throw Py::BaseException(Part::PartExceptionOCCError, str);
         }
         catch (const Base::Exception &e) {
             std::string str;
@@ -597,6 +597,7 @@ private:
             Base::Console().Error("%s\n", str.c_str());
             throw Py::RuntimeError(str);
         }
+        throw Py::Exception();
     }
 
     virtual Py::Object invoke_method_varargs(void *method_def, const Py::Tuple &args) override
@@ -612,7 +613,7 @@ private:
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
             Base::Console().Error("%s\n", str.c_str());
-            throw Py::Exception(Part::PartExceptionOCCError, str);
+            throw Py::BaseException(Part::PartExceptionOCCError, str);
         }
         catch (const Base::Exception &e) {
             std::string str;
@@ -630,6 +631,7 @@ private:
             Base::Console().Error("%s\n", str.c_str());
             throw Py::RuntimeError(str);
         }
+        throw Py::Exception();
     }
 
     Py::Object open(const Py::Tuple& args)
@@ -879,7 +881,7 @@ private:
             }
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
 
         return Py::asObject(new TopoShapeShellPy(new TopoShape(shape)));
@@ -914,7 +916,7 @@ private:
                     else
                         fm->addShape(sh);
                 } else {
-                    throw Py::Exception(PyExc_TypeError, "First argument is neither a shape nor list of shapes.");
+                    throw Py::BaseException(PyExc_TypeError, "First argument is neither a shape nor list of shapes.");
                 }
 
                 fm->Build();
@@ -923,13 +925,14 @@ private:
                 return Py::asObject(topo.getPyObject());
             }
 
-            throw Py::Exception(Base::BaseExceptionFreeCADError, std::string("Argument type signature not recognized. Should be either (list, string), or (shape, string)"));
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, std::string("Argument type signature not recognized. Should be either (list, string), or (shape, string)"));
 
         } catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         } catch (Base::Exception &e){
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.what());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.what());
         }
+        throw Py::Exception();
     }
     Py::Object makeFilledFace(const Py::Tuple& args)
     {
@@ -975,7 +978,7 @@ private:
             }
 
             if (numConstraints == 0) {
-                throw Py::Exception(PartExceptionOCCError, "Failed to create face with no constraints");
+                throw Py::BaseException(PartExceptionOCCError, "Failed to create face with no constraints");
             }
 
             builder.Build();
@@ -983,12 +986,13 @@ private:
                 return Py::asObject(new TopoShapeFacePy(new TopoShape(builder.Face())));
             }
             else {
-                throw Py::Exception(PartExceptionOCCError, "Failed to created face by filling edges");
+                throw Py::BaseException(PartExceptionOCCError, "Failed to created face by filling edges");
             }
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeSolid(const Py::Tuple& args)
     {
@@ -1037,8 +1041,9 @@ private:
         catch (Standard_Failure& err) {
             std::stringstream errmsg;
             errmsg << "Creation of solid failed: " << err.GetMessageString();
-            throw Py::Exception(PartExceptionOCCError, errmsg.str().c_str());
+            throw Py::BaseException(PartExceptionOCCError, errmsg.str().c_str());
         }
+        throw Py::Exception();
     }
     Py::Object makePlane(const Py::Tuple& args)
     {
@@ -1087,11 +1092,12 @@ private:
             return Py::asObject(new TopoShapeFacePy(new TopoShape((Face.Face()))));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of plane failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of plane failed");
         }
         catch (Standard_Failure&) {
-            throw Py::Exception(PartExceptionOCCError, "creation of plane failed");
+            throw Py::BaseException(PartExceptionOCCError, "creation of plane failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeBox(const Py::Tuple& args)
     {
@@ -1129,8 +1135,9 @@ private:
             return Py::asObject(new TopoShapeSolidPy(new TopoShape(ResultShape)));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of box failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of box failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeWedge(const Py::Tuple& args)
     {
@@ -1179,8 +1186,9 @@ private:
             return Py::asObject(new TopoShapeSolidPy(new TopoShape(mkSolid.Solid())));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of wedge failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of wedge failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeLine(const Py::Tuple& args)
     {
@@ -1238,11 +1246,12 @@ private:
         }
         // Error
         if (error) {
-            throw Py::Exception(PartExceptionOCCError, error);
+            throw Py::BaseException(PartExceptionOCCError, error);
         }
 
         TopoDS_Edge edge = makeEdge.Edge();
         return Py::asObject(new TopoShapeEdgePy(new TopoShape(edge)));
+        throw Py::Exception();
     }
     Py::Object makePolygon(const Py::Tuple& args)
     {
@@ -1278,8 +1287,9 @@ private:
             return Py::asObject(new TopoShapeWirePy(new TopoShape(mkPoly.Wire())));
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeCircle(const Py::Tuple& args)
     {
@@ -1314,8 +1324,9 @@ private:
             return Py::asObject(new TopoShapeEdgePy(new TopoShape(edge)));
         }
         catch (Standard_Failure&) {
-            throw Py::Exception(PartExceptionOCCError, "creation of circle failed");
+            throw Py::BaseException(PartExceptionOCCError, "creation of circle failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeSphere(const Py::Tuple& args)
     {
@@ -1344,8 +1355,9 @@ private:
             return Py::asObject(new TopoShapeSolidPy(new TopoShape(shape)));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of sphere failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of sphere failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeCylinder(const Py::Tuple& args)
     {
@@ -1374,8 +1386,9 @@ private:
             return Py::asObject(new TopoShapeSolidPy(new TopoShape(shape)));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of cylinder failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of cylinder failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeCone(const Py::Tuple& args)
     {
@@ -1404,8 +1417,9 @@ private:
             return Py::asObject(new TopoShapeSolidPy(new TopoShape(shape)));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of cone failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of cone failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeTorus(const Py::Tuple& args)
     {
@@ -1434,8 +1448,9 @@ private:
             return Py::asObject(new TopoShapeSolidPy(new TopoShape(shape)));
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of torus failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of torus failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeHelix(const Py::Tuple& args)
     {
@@ -1457,8 +1472,9 @@ private:
             return Py::asObject(new TopoShapeWirePy(new TopoShape(wire)));
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeLongHelix(const Py::Tuple& args)
     {
@@ -1476,8 +1492,9 @@ private:
             return Py::asObject(new TopoShapeWirePy(new TopoShape(wire)));
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeThread(const Py::Tuple& args)
     {
@@ -1491,8 +1508,9 @@ private:
             return Py::asObject(new TopoShapeWirePy(new TopoShape(wire)));
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeRevolution(const Py::Tuple& args)
     {
@@ -1513,7 +1531,7 @@ private:
                 curve = Handle(Geom_Curve)::DownCast
                     (pcGeo->getGeometryPtr()->handle());
                 if (curve.IsNull()) {
-                    throw Py::Exception(PyExc_TypeError, "geometry is not a curve");
+                    throw Py::BaseException(PyExc_TypeError, "geometry is not a curve");
                 }
                 if (vmin == DBL_MAX)
                     vmin = curve->FirstParameter();
@@ -1531,11 +1549,11 @@ private:
                                                        &(PyType_Type), &type)) {
                 const TopoDS_Shape& shape = static_cast<TopoShapePy*>(pCrv)->getTopoShapePtr()->getShape();
                 if (shape.IsNull()) {
-                    throw Py::Exception(PartExceptionOCCError, "shape is empty");
+                    throw Py::BaseException(PartExceptionOCCError, "shape is empty");
                 }
 
                 if (shape.ShapeType() != TopAbs_EDGE) {
-                    throw Py::Exception(PartExceptionOCCError, "shape is not an edge");
+                    throw Py::BaseException(PartExceptionOCCError, "shape is not an edge");
                 }
 
                 const TopoDS_Edge& edge = TopoDS::Edge(shape);
@@ -1546,7 +1564,7 @@ private:
                 TopLoc_Location loc = edge.Location();
                 curve = Handle(Geom_Curve)::DownCast(hCurve->Transformed(loc.Transformation()));
                 if (curve.IsNull()) {
-                    throw Py::Exception(PartExceptionOCCError, "invalid curve in edge");
+                    throw Py::BaseException(PartExceptionOCCError, "invalid curve in edge");
                 }
 
                 if (vmin == DBL_MAX)
@@ -1596,8 +1614,9 @@ private:
             }
         }
         catch (Standard_DomainError&) {
-            throw Py::Exception(PartExceptionOCCDomainError, "creation of revolved shape failed");
+            throw Py::BaseException(PartExceptionOCCDomainError, "creation of revolved shape failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeRuledSurface(const Py::Tuple& args)
     {
@@ -1620,12 +1639,13 @@ private:
                 return Py::asObject(new TopoShapeShellPy(new TopoShape(shell)));
             }
             else {
-                throw Py::Exception(PartExceptionOCCError, "curves must either be edges or wires");
+                throw Py::BaseException(PartExceptionOCCError, "curves must either be edges or wires");
             }
         }
         catch (Standard_Failure&) {
-            throw Py::Exception(PartExceptionOCCError, "creation of ruled surface failed");
+            throw Py::BaseException(PartExceptionOCCError, "creation of ruled surface failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeShellFromWires(const Py::Tuple& args)
     {
@@ -1648,8 +1668,9 @@ private:
             return Py::asObject(new TopoShapeShellPy(new TopoShape(fill.Shell())));
         }
         catch (Standard_Failure&) {
-            throw Py::Exception(PartExceptionOCCError, "creation of shell failed");
+            throw Py::BaseException(PartExceptionOCCError, "creation of shell failed");
         }
+        throw Py::Exception();
     }
     Py::Object makeTube(const Py::Tuple& args)
     {
@@ -1690,8 +1711,9 @@ private:
             return Py::asObject(new TopoShapeFacePy(new TopoShape(face)));
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeSweepSurface(const Py::Tuple& args)
     {
@@ -1714,8 +1736,9 @@ private:
             return Py::asObject(new TopoShapeFacePy(new TopoShape(face)));
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeLoft(const Py::Tuple& args)
     {
@@ -1866,8 +1889,9 @@ private:
             return tuple;
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(PartExceptionOCCError, e.GetMessageString());
+            throw Py::BaseException(PartExceptionOCCError, e.GetMessageString());
         }
+        throw Py::Exception();
     }
     Py::Object makeWireString(const Py::Tuple& args)
     {
@@ -1964,10 +1988,10 @@ private:
 #endif
         }
         catch (Standard_DomainError&) {                                      // Standard_DomainError is OCC error.
-            throw Py::Exception(PartExceptionOCCDomainError, "makeWireString failed - Standard_DomainError");
+            throw Py::BaseException(PartExceptionOCCDomainError, "makeWireString failed - Standard_DomainError");
         }
         catch (std::runtime_error& e) {                                     // FT2 or FT2FC errors
-            throw Py::Exception(PartExceptionOCCError, e.what());
+            throw Py::BaseException(PartExceptionOCCError, e.what());
         }
 
         return Py::asObject(CharList);
@@ -2046,7 +2070,7 @@ private:
     {
         PyObject *obj;
         if (!PyArg_ParseTuple(args.ptr(), "O", &obj)) {
-            throw Py::Exception(PartExceptionOCCError, "list of edges expected");
+            throw Py::BaseException(PartExceptionOCCError, "list of edges expected");
         }
 
         Py::Sequence list(obj);
@@ -2116,7 +2140,7 @@ private:
     {
         PyObject *obj;
         if (!PyArg_ParseTuple(args.ptr(), "O", &obj)) {
-            throw Py::Exception(PartExceptionOCCError, "list of edges expected");
+            throw Py::BaseException(PartExceptionOCCError, "list of edges expected");
         }
 
         Py::Sequence list(obj);
@@ -2161,8 +2185,9 @@ private:
             return Py::asObject(proxy);
         }
         catch (const Base::Exception& e) {
-            throw Py::Exception(PartExceptionOCCError, e.what());
+            throw Py::BaseException(PartExceptionOCCError, e.what());
         }
+        throw Py::Exception();
     }
     Py::Object fromPythonOCC(const Py::Tuple& args)
     {
@@ -2179,8 +2204,9 @@ private:
             return Py::asObject(new TopoShapePy(shape));
         }
         catch (const Base::Exception& e) {
-            throw Py::Exception(PartExceptionOCCError, e.what());
+            throw Py::BaseException(PartExceptionOCCError, e.what());
         }
+        throw Py::Exception();
     }
 
     Py::Object getShape(const Py::Tuple& args, const Py::Dict &kwds) {

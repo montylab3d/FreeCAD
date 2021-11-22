@@ -64,7 +64,7 @@ void ViewProviderLinkPy::setUseCenterballDragger(Py::Boolean arg) {
     try {
         getViewProviderLinkPtr()->enableCenterballDragger(arg);
     }catch(const Base::Exception &e){
-        throw Py::Exception(Base::BaseExceptionFreeCADError,e.what());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,e.what());
     }
 }
 

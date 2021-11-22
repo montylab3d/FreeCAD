@@ -339,8 +339,9 @@ Py::Object SelectionFilterPy::setFilter(const Py::Tuple& args)
         return Py::None();
     }
     catch (const Base::Exception& e) {
-        throw Py::Exception(PyExc_SyntaxError, e.what());
+        throw Py::BaseException(PyExc_SyntaxError, e.what());
     }
+    throw Py::Exception();
 }
 
 // === Parser & Scanner stuff ===============================================

@@ -88,7 +88,7 @@ private:
             }
         }
         else {
-            throw Py::Exception(PyExc_IOError, "Could not load image file");
+            throw Py::BaseException(PyExc_IOError, "Could not load image file");
         }
 
         // Displaying the image in a view.

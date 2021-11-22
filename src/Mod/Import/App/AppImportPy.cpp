@@ -172,7 +172,7 @@ private:
                     aReader.SetNameMode(true);
                     aReader.SetLayerMode(true);
                     if (aReader.ReadFile((Standard_CString)(name8bit.c_str())) != IFSelect_RetDone) {
-                        throw Py::Exception(PyExc_IOError, "cannot read STEP file");
+                        throw Py::BaseException(PyExc_IOError, "cannot read STEP file");
                     }
 
 #if OCC_VERSION_HEX < 0x070500
@@ -208,7 +208,7 @@ private:
                     aReader.SetNameMode(true);
                     aReader.SetLayerMode(true);
                     if (aReader.ReadFile((Standard_CString)(name8bit.c_str())) != IFSelect_RetDone) {
-                        throw Py::Exception(PyExc_IOError, "cannot read IGES file");
+                        throw Py::BaseException(PyExc_IOError, "cannot read IGES file");
                     }
 
 #if OCC_VERSION_HEX < 0x070500
@@ -234,7 +234,7 @@ private:
                 }
             }
             else {
-                throw Py::Exception(Base::BaseExceptionFreeCADError, "no supported file format");
+                throw Py::BaseException(Base::BaseExceptionFreeCADError, "no supported file format");
             }
 
 #if 1
@@ -275,7 +275,7 @@ private:
             }
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.GetMessageString());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             throw Py::RuntimeError(e.what());
@@ -395,7 +395,7 @@ private:
             hApp->Close(hDoc);
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::BaseExceptionFreeCADError, e.GetMessageString());
+            throw Py::BaseException(Base::BaseExceptionFreeCADError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             throw Py::RuntimeError(e.what());

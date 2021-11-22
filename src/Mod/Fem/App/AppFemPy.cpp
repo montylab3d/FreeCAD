@@ -119,7 +119,7 @@ private:
             str += " ";
             if (msg) {str += msg;}
             else     {str += "No OCCT Exception Message";}
-            throw Py::Exception(Part::PartExceptionOCCError, str);
+            throw Py::BaseException(Part::PartExceptionOCCError, str);
         }
         catch (const Base::Exception &e) {
             throw Py::RuntimeError(e.what());

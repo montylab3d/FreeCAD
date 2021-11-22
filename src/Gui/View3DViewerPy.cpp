@@ -372,6 +372,7 @@ Py::Object View3DInventorViewerPy::setPickRadius(const Py::Tuple& args)
     catch(...) {
         throw Py::RuntimeError("Unknown C++ exception");
     }
+    throw Py::Exception();
 }
 
 Py::Object View3DInventorViewerPy::setupEditingRoot(const Py::Tuple& args)
@@ -397,7 +398,7 @@ Py::Object View3DInventorViewerPy::setupEditingRoot(const Py::Tuple& args)
         return Py::None();
     }
     catch (const Base::Exception& e) {
-        throw Py::Exception(Base::BaseExceptionFreeCADError,e.what());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,e.what());
     }
     catch (const std::exception& e) {
         throw Py::RuntimeError(e.what());
@@ -405,6 +406,7 @@ Py::Object View3DInventorViewerPy::setupEditingRoot(const Py::Tuple& args)
     catch(...) {
         throw Py::RuntimeError("Unknown C++ exception");
     }
+    throw Py::Exception();
 }
 
 Py::Object View3DInventorViewerPy::resetEditingRoot(const Py::Tuple& args)
@@ -418,7 +420,7 @@ Py::Object View3DInventorViewerPy::resetEditingRoot(const Py::Tuple& args)
         return Py::None();
     }
     catch (const Base::Exception& e) {
-        throw Py::Exception(Base::BaseExceptionFreeCADError,e.what());
+        throw Py::BaseException(Base::BaseExceptionFreeCADError,e.what());
     }
     catch (const std::exception& e) {
         throw Py::RuntimeError(e.what());
