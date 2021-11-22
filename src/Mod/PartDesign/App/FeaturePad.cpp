@@ -98,10 +98,14 @@ App::DocumentObjectExecReturn *Pad::execute()
     Midplane.setReadOnly(hasReversed);
     Reversed.setReadOnly(hasMidplane);
 
-    Part::Feature* obj = 0;
+    //Part::Feature* obj;
     TopoDS_Shape sketchshape;
     try {
-        obj = getVerifiedObject();
+        // Eliminate 'obj set but unused' warning, but assume for now
+        // there may be some side effect from the call that it must be
+        // preserved.
+        // obj = getVerifiedObject();
+        getVerifiedObject();
         sketchshape = getVerifiedFace();
     }
     catch (const Base::Exception& e) {

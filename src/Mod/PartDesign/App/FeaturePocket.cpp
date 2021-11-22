@@ -98,10 +98,14 @@ App::DocumentObjectExecReturn *Pocket::execute()
     if ((std::string(Type.getValueAsString()) == "TwoLengths") && (L < Precision::Confusion()))
         return new App::DocumentObjectExecReturn("Pocket: Second length of pocket too small");
 
-    Part::Feature* obj = 0;
+    //Part::Feature* obj;
     TopoDS_Shape profileshape;
     try {
-        obj = getVerifiedObject();
+        // Eliminate 'obj set but unused' warning, but assume for now
+        // there may be some side effect from the call that it must be
+        // preserved.
+        // obj = getVerifiedObject();
+        getVerifiedObject();
         profileshape = getVerifiedFace();
     } catch (const Base::Exception& e) {
         return new App::DocumentObjectExecReturn(e.what());
