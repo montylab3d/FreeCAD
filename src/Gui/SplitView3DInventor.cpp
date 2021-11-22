@@ -729,7 +729,7 @@ Py::Object AbstractSplitViewPy::sequence_item(ssize_t viewIndex)
     return Py::asObject(viewer);
 }
 
-int AbstractSplitViewPy::sequence_length()
+PyCxx_ssize_t AbstractSplitViewPy::sequence_length()
 {
     AbstractSplitView* view = getSplitViewPtr();
     return view->getSize();

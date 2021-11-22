@@ -101,7 +101,7 @@ public:
     Py::Object getViewer(const Py::Tuple&);
     Py::Object sequence_item(ssize_t);
     Py::Object close(const Py::Tuple&);
-    int sequence_length();
+    PyCxx_ssize_t sequence_length();
 
 private:
     Gui::MDIViewPy base;
