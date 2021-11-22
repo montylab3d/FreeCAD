@@ -2089,8 +2089,12 @@ yyreturn:
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
+/* Suppress false positive warning from GCC */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfree-nonheap-object"
   if (yyss != yyssa)
     YYSTACK_FREE (yyss);
+#pragma GCC diagnostic pop
 #endif
 #if YYERROR_VERBOSE
   if (yymsg != yymsgbuf)
