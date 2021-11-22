@@ -40,7 +40,8 @@ if(PYCXX_INCLUDE_DIR)
 else(PYCXX_INCLUDE_DIR)
     # check in 'standard' places
     find_path(PYCXX_INCLUDE_DIR CXX/Config.hxx
-        ${PYTHON_INCLUDE_DIR}
+        "/usr/include"
+        "${PYTHON_INCLUDE_DIR}"
         "${CMAKE_CURRENT_LIST_DIR}/..")
     if(NOT PYCXX_INCLUDE_DIR)
         if(PyCXX_FIND_REQUIRED)
@@ -72,6 +73,7 @@ if(PYCXX_SOURCE_DIR)
 else(PYCXX_SOURCE_DIR)
     # check in 'standard' places
     find_path(PYCXX_SOURCE_DIR cxxextensions.c
+        "/usr/src/CXX"
         "${PYCXX_INCLUDE_DIR}/CXX"
         "${PYCXX_INCLUDE_DIR}/Src"
         "${PYTHON_INCLUDE_DIR}/CXX"
@@ -120,8 +122,8 @@ if(PYCXX_FOUND)
     if(NOT ${PYCXX_VERSION} VERSION_LESS 7.0.0)
         list(APPEND PYCXX_SOURCES
             ${PYCXX_SOURCE_DIR}/cxx_exceptions.cxx)
-        add_definitions(-DPYCXX_6_2_COMPATIBILITY)
     endif()
+    MESSAGE(STATUS "    Files:  [${PYCXX_SOURCES}]")
 else(PYCXX_FOUND)
     MESSAGE(STATUS "PyCXX not found")
 endif(PYCXX_FOUND)
