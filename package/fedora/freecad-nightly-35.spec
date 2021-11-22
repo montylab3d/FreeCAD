@@ -165,30 +165,15 @@ dos2unix -k src/Mod/Test/unittestgui.py \
        -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
        -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
        -DRESOURCEDIR=%{_datadir}/%{name} \
-       -DPYTHON_SUFFIX=.%{py_suffix} \
-       -DPYTHON_EXECUTABLE=%{__python3} \
-       -DPYSIDE_INCLUDE_DIR=/usr/include/PySide2 \
-       -DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
-       -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
-       -DSHIBOKEN_LIBRARY=%{_libdir}/libshiboken2.%{py_suffix}.so \
-       -DBUILD_QT5=ON \
        -DOpenGL_GL_PREFERENCE=GLVND \
-       -DUSE_OCC=TRUE \
        -DBUILD_FEM_NETGEN=TRUE \
+       -DFREECAD_USE_PYBIND11=TRUE \
 %if ! %{bundled_smesh}
        -DFREECAD_USE_EXTERNAL_SMESH=TRUE \
-       -DSMESH_FOUND=TRUE \
-       -DSMESH_INCLUDE_DIR=%{_includedir}/smesh \
-       -DSMESH_DIR=`pwd`/../cMake \
 %endif
 %if ! %{bundled_zipios}
        -DFREECAD_USE_EXTERNAL_ZIPIOS=TRUE \
 %endif
-%if ! %{bundled_pycxx}
-       -DPYCXX_INCLUDE_DIR=$(pkg-config --variable=includedir PyCXX) \
-       -DPYCXX_SOURCE_DIR=$(pkg-config --variable=srcdir PyCXX) \
-%endif
-       -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
        -DFREECAD_USE_EXTERNAL_PIVY=TRUE \
        -DFREECAD_USE_PCL=TRUE \
        -DPACKAGE_WCREF="%{release} (Git)" \
