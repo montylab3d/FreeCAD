@@ -706,10 +706,10 @@ void DocumentRecoveryCleaner::clearDirectory(const QFileInfo& dir)
 void DocumentRecoveryCleaner::subtractFiles(QStringList& files)
 {
     if (!ignoreFiles.isEmpty() && !files.isEmpty()) {
-        QSet<QString> set1 = files.toSet();
-        QSet<QString> set2 = ignoreFiles.toSet();
+        QSet<QString> set1(files.begin(), files.end());
+        QSet<QString> set2(ignoreFiles.begin(), ignoreFiles.end());
         set1.subtract(set2);
-        files = set1.toList();
+        files = set1.values();
     }
 }
 
