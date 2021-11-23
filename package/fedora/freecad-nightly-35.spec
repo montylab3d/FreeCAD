@@ -7,7 +7,7 @@
 
 # Maintainers:  keep this list of plugins up to date
 # List plugins in %%{_libdir}/%{name}/lib, less '.so' and 'Gui.so', here
-%global plugins Complete Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part Points QtUnit Raytracing ReverseEngineering Robot Sketcher Start Web PartDesignGui _PartDesign Path PathGui Spreadsheet SpreadsheetGui area DraftUtils libDriver libDriverDAT libDriverSTL libDriverUNV libMEFISTO2 libSMDS libSMESH libSMESHDS libStdMeshers Measure TechDraw TechDrawGui libarea-native Surface SurfaceGui PathSimulator
+%global plugins Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part Points QtUnit Raytracing ReverseEngineering Robot Sketcher Start Web PartDesignGui _PartDesign Path PathGui Spreadsheet SpreadsheetGui area DraftUtils libDriver libDriverDAT libDriverSTL libDriverUNV libMEFISTO2 libSMDS libSMESH libSMESHDS libStdMeshers Measure TechDraw TechDrawGui libarea-native Surface SurfaceGui PathSimulator
 
 # Some configuration options for other environments
 # rpmbuild --with=bundled_zipios:  use bundled version of zipios++
@@ -118,6 +118,18 @@ Provides:       bundled(python-pycxx)
 %endif
 Recommends:	python3-pysolar
 
+# plugins and private shared libs in %%{_libdir}/freecad/lib are private;
+# prevent private capabilities being advertised in Provides/Requires
+%define plugin_regexp /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
+%{?filter_setup:
+%filter_provides_in %{_libdir}/%{name}/lib
+%filter_from_requires %{plugin_regexp}
+%filter_from_provides %{plugin_regexp}
+%filter_provides_in %{_libdir}/%{name}/Mod
+%filter_requires_in %{_libdir}/%{name}/Mod
+%filter_setup
+}
+
 %description
 FreeCAD is a general purpose Open Source 3D CAD/MCAD/CAx/CAE/PLM modeler, aimed
 directly at mechanical engineering and product design but also fits a wider
@@ -174,7 +186,6 @@ dos2unix -k src/Mod/Test/unittestgui.py \
 %if ! %{bundled_zipios}
        -DFREECAD_USE_EXTERNAL_ZIPIOS=TRUE \
 %endif
-       -DFREECAD_USE_EXTERNAL_PIVY=TRUE \
        -DFREECAD_USE_PCL=TRUE \
        -DPACKAGE_WCREF="%{release} (Git)" \
        -DPACKAGE_WCURL="{{{git_remote_url}}} {{{git_branch}}}"
@@ -182,7 +193,7 @@ dos2unix -k src/Mod/Test/unittestgui.py \
 make fc_version
 for I in src/Build/Version.h src/Build/Version.h.out; do
 	sed -i 's,FCRevision      \"Unknown\",FCRevision      \"%{release} (Git)\",' $I
-	sed -i 's,FCRepositoryURL \"Unknown\",FCRepositoryURL \"{{{git_remote_url}}} {{{git_branch}}}"\",' $I
+	sed -i 's,FCRepositoryURL \"Unknown\",FCRepositoryURL \"{{{git_remote_url}}} {{{git_branch}}}\",' $I
 done
 
 %cmake_build
